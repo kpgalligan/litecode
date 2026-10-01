@@ -1,7 +1,7 @@
 ---
 name: lc-triage
 description: litecode stage 0. Decides whether a coding task takes the small route or the full design pipeline. Only invoked by the litecode orchestrator.
-model: claude-sonnet-5
+model: claude-sonnet-5-5
 effort: low
 tools: Read, Glob, Grep, Write, Edit, Bash
 ---
