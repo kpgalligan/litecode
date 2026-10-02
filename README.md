@@ -112,3 +112,24 @@ agents/
   lc-reviewer.md
   lc-fixer.md
 ```
+
+## Analytics
+
+`analytics/` builds a report of timing, tokens, context size, compactions, and filed GitHub issues for every litecode run. It reads Claude Code's transcripts, so it covers past runs without any setup in the skill or agents.
+
+```sh
+cd analytics
+pnpm install
+pnpm all        # extract new transcripts, then write the report
+open ~/.claude/litecode-analytics/report.html
+```
+
+How it works:
+
+- **Extract.** Scans `~/.claude/projects` and `~/.claude-personal/projects` (override with `--projects <dir>`, repeatable). Each transcript is parsed once and cached in `~/.claude/litecode-analytics/cache/`. The cache is kept after Claude Code deletes old transcripts (`cleanupPeriodDays`, 30 days by default), so run the extractor at least that often.
+- **Runs.** A subagent belongs to a run when its dispatch prompt names a handoff dir. Its stage comes from the agent type and the file it was told to write. Route, title, and outcome come from the handoff files when they still exist.
+- **Orchestrator.** Main-session turns between the run's first stage and 30 minutes after its last stage (or the next run's start) are counted as orchestrator overhead.
+- **Operations.** Each tool call records its duration, the size of its result, and its share of the turn's output tokens. Calls under 5s and 2k tokens are grouped by tool (`--min-op-seconds`, `--min-op-tokens`).
+- **Issues.** Any `gh issue create` whose output prints an issue URL. The report fetches current titles and open/closed state with one `gh issue list` per repo (`--no-gh` skips this).
+
+Agent time is time a transcript was active, with idle gaps over 30 minutes removed. Tokens include cache reads, which make up most of the total, so the report also shows output and uncached input separately.

@@ -1,0 +1,23 @@
+{
+  "name": "litecode-analytics",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Extracts per-stage timing, token, context, and compaction metrics for litecode runs from Claude Code transcripts, and renders an HTML report.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "extract": "node src/cli.ts extract",
+    "report": "node src/cli.ts report",
+    "all": "node src/cli.ts all",
+    "typecheck": "tsc",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "prettier": "^3.9.9",
+    "typescript": "^7.0.2"
+  }
+}
