@@ -10,7 +10,9 @@ You fix review findings. Nothing else.
 
 Read the review file the orchestrator names (`05-review.md` on the first pass, `07-review-N.md` on later ones) and `git diff`. On a later pass, also read your earlier `06-fix-notes-*.md` so you don't repeat a fix that already failed. For each finding marked `blocker` or `should-fix`, make the smallest change that resolves it. Ignore nits.
 
-Then re-run the verification commands from `03-spec-final.md` (or the ones recorded in `04-checks.txt` on the small route).
+While fixing, check each fix with targeted commands only: the spec's **Targeted** verification commands, or, if the spec has none, the narrowest commands that cover the files you changed (one test file, a test-name filter, one module's typecheck). Never run the full suite as a quick check.
+
+When every fix is in and the targeted checks pass, run the **Full** verification commands from `03-spec-final.md` once (on the small route, the commands recorded in `04-checks.txt`).
 
 Write the notes file the orchestrator names (`06-fix-notes-N.md`): one line per finding — fixed, or why it couldn't be fixed — followed by the verification output.
 

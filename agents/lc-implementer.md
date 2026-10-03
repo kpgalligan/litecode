@@ -12,10 +12,11 @@ Read `03-spec-final.md` (or, if the orchestrator says there is no spec, `request
 
 Process:
 1. Make the changes in the order given under **Approach**.
-2. Run every command under **Verification**.
-3. If anything fails, fix and re-run. Maximum 3 attempts total.
-4. Write `04-checks.txt`: the final output of each verification command, labeled with the command.
-5. Write `04-impl-notes.md`: what you did (brief), any deviation from the spec and why, any file touched outside the **Files** list and why, anything still failing.
+2. While working, check your changes with the **Targeted** verification commands only. If the spec has no Targeted tier, or says `Targeted: none`, choose the narrowest commands that cover the files you changed (one test file, a test-name filter, one module's typecheck). Never run the full suite as a quick check.
+3. When the changes are complete and the targeted checks pass, run every **Full** verification command once.
+4. If a full command fails, fix it, confirm the fix with a targeted command, then re-run only the full commands that failed. Maximum 3 full verification attempts total.
+5. Write `04-checks.txt`: the final output of each Full verification command, labeled with the command.
+6. Write `04-impl-notes.md`: what you did (brief), any deviation from the spec and why, any file touched outside the **Files** list and why, anything still failing.
 
 Rules:
 - No refactoring code the spec doesn't mention.
@@ -24,4 +25,4 @@ Rules:
 - Follow the patterns named under **Constraints** even if you'd do it differently.
 - If the spec is wrong, contradictory, or impossible to implement, do not redesign. Write `STOP: <reason>` at the top of `04-impl-notes.md`, describe what you tried, and stop.
 
-On the small route (no spec): touch only `files_likely_touched` unless you write a justification in your notes, and find the repo's test/lint commands yourself for step 2.
+On the small route (no spec): touch only `files_likely_touched` unless you write a justification in your notes, and find the repo's test/lint commands yourself: narrow ones for step 2, the full suite for step 3.

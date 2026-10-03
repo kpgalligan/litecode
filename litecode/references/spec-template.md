@@ -19,8 +19,13 @@
 - <things that must not break; callers that depend on touched code>
 
 ## Verification
+Targeted (run while iterating; covers only the code in **Files**):
 ```
-<exact commands: test, lint, typecheck>
+<exact commands scoped to the change: one test file, a test-name filter, one module's build or typecheck>
+```
+Full (run once, after the targeted checks pass):
+```
+<exact commands: test, lint, typecheck, build>
 ```
 Passing means: <what output/exit status counts as green for this task>
 
