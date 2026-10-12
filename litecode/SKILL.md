@@ -51,7 +51,7 @@ Check for `STOP:` in the notes. If present, halt.
 
 ### Stage 4 — review (`lc-reviewer`)
 
-**Skip check first.** Run `git diff --stat` (or the equivalent for the repo's VCS). If total changed lines < 80 AND `04-checks.txt` shows every verification command passing → skip to **Finish**.
+**Skip check first.** Run `git diff --stat` (or the equivalent for the repo's VCS). If total changed lines < 80 AND `04-checks.txt` shows every verification command passing (a command recorded as `SKIPPED:` with a reason counts as passing) → skip to **Finish**.
 
 Otherwise dispatch: `Handoff dir: $HANDOFF. Read 03-spec-final.md (or request.md on the small route), 04-impl-notes.md, 04-checks.txt, and the git diff. Write 05-review.md.`
 
@@ -61,7 +61,7 @@ If `verdict: pass` → **Finish**. If `verdict: fix-required` → Stage 5.
 
 Fix pass `N` runs from 1 to 5. The review it answers is `05-review.md` for pass 1, and `07-review-N.md` (the re-review written after pass `N-1`) after that.
 
-1. Fix dispatch: `Handoff dir: $HANDOFF. Read <that review> and the git diff. Fix every blocker and should-fix. Re-run the verification commands from the spec. Write 06-fix-notes-N.md.`
+1. Fix dispatch: `Handoff dir: $HANDOFF. Read <that review> and the git diff. Fix every blocker and should-fix. Re-run the spec's verification commands that your fixes can affect. Write 06-fix-notes-N.md.`
 2. If the fix notes contain `STOP:`, halt (see **Stopping**).
 3. Re-review dispatch: `Handoff dir: $HANDOFF. Read 03-spec-final.md (or request.md on the small route), 04-impl-notes.md, 04-checks.txt, every 06-fix-notes-*.md so far, the review pass N answered, and the git diff. Write 07-review-<N+1>.md.`
 4. If that review says `verdict: pass` → **Finish**. If it says `fix-required` and `N < 5` → run pass `N+1`. If `N = 5` → do NOT run the fixer again. Go to **Finish** and report the unresolved findings.

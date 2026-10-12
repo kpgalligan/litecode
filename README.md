@@ -56,6 +56,7 @@ The skill is not for questions, explanations, or one-line edits. Ask Claude for 
 - **Triage always runs.** It picks the `small` route only when the task touches at most 3 files, adds no public interface, changes no migrations, config formats, or build system, and doesn't cross module boundaries. If it is unsure, it picks `full`. The small route goes straight to implementation with no spec.
 - **The adversary can approve the spec as written.** If it returns `verdict: proceed` with no objections, the spec is copied to `03-spec-final.md` and the revision step is skipped.
 - **Review is skipped for small, green diffs.** If the diff is under 80 changed lines and every verification command passed, the run finishes without a review.
+- **Verification is scoped to the change.** The spec's Full tier lists only the gates the planned files can affect, plus any probe whose behavior the task changes. The implementer and fixer skip a Full command their edits cannot affect and record it in the checks as `SKIPPED:` with a reason, which the reviewer checks against the diff. Each check runs once per change, with its output kept in a log.
 - **The fix loop runs at most 5 passes.** It ends early when a re-review passes, or when the same finding at the same `file:line` comes back after the fixer claimed to fix it. Findings still open at the end are reported, not retried.
 
 ### Agent roles

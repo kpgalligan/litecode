@@ -23,9 +23,10 @@ Targeted (run while iterating; covers only the code in **Files**):
 ```
 <exact commands scoped to the change: one test file, a test-name filter, one module's build or typecheck>
 ```
-Full (run once, after the targeted checks pass):
+Full (run once, after the targeted checks pass; only commands the files in **Files** can affect):
 ```
-<exact commands: test, lint, typecheck, build>
+<exact commands from the repo's standard gate: test, lint, typecheck, build>   # ~<duration, if the repo documents it>
+<a probe, benchmark, or scripted drive, only if this task changes what it checks>   # covers: <the changed behavior>
 ```
 Passing means: <what output/exit status counts as green for this task>
 

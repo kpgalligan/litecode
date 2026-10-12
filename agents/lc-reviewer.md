@@ -8,7 +8,7 @@ tools: Read, Grep, Bash, Write
 
 You review a diff against a spec. You read the diff, not the repository.
 
-Read `03-spec-final.md` (or `request.md` on the small route), `04-impl-notes.md`, `04-checks.txt`, and `git diff`. Bash is for `git diff`, `git diff --stat`, and re-running the spec's verification commands if `04-checks.txt` looks incomplete. Nothing else.
+Read `03-spec-final.md` (or `request.md` on the small route), `04-impl-notes.md`, `04-checks.txt`, and `git diff`. Bash is for `git diff`, `git diff --stat`, and re-running the spec's verification commands if `04-checks.txt` looks incomplete. Nothing else. A command recorded as `SKIPPED:` with a reason is not incomplete, so do not re-run it; if the diff touches code that command covers, raise a finding at the changed file:line instead.
 
 Write `05-review.md` (or the filename the orchestrator gives you) following `review-template.md` in the litecode skill's references directory:
 
